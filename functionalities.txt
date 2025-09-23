@@ -1,0 +1,70 @@
+Of course. To build this project efficiently, you should focus on implementing one core module at a time. This walkthrough breaks down the schema and the specific functions required for each part of the application.
+
+---
+## 1. Goal Management Module
+
+This is the foundation of the application. It defines what the user wants to achieve.
+
+### ### Schema (`goals` table)
+This table stores the high-level objectives.
+* **`id` (Primary Key):** A unique identifier for each goal.
+* **`description` (Text):** What the goal is (e.g., "Launch version 1 of my app").
+* **`metric` (Text):** The unit of measurement ('hours' or 'tasks').
+* **`target_value` (Numeric):** The target number to reach (e.g., 50 hours).
+* **`current_value` (Numeric):** The current progress, which defaults to 0.
+* **`deadline` (Date):** An optional end date for the goal.
+
+### ### Functionalities (Code)
+Your Python code will need functions to interact with this table:
+* **`add_goal(description, metric, target, deadline)`:** Takes user input from the CLI and inserts a new row into the `goals` table.
+* **`list_goals()`:** Queries the `goals` table and prints a formatted list of all active goals.
+* **`show_progress(goal_id)`:** Fetches a single goal by its ID, calculates the completion percentage (`current_value` / `target_value`), and displays it with a motivational progress bar.
+
+---
+## 2. Manual Time Tracking Module
+
+This module handles the active, focused work sessions. It builds on top of the Goal Management module.
+
+### ### Schema (`tasks` & `time_entries` tables)
+* **`tasks` table:** Adds granularity to goals.
+    * **`id` (Primary Key):** Unique ID for the task.
+    * **`goal_id` (Foreign Key):** Links the task to a specific goal.
+    * **`description` (Text):** The name of the task (e.g., "Set up database").
+    * **`status` (Text):** The current state ('todo', 'in_progress', 'done').
+* **`time_entries` table:** Logs the actual work sessions.
+    * **`id` (Primary Key):** Unique ID for the time log.
+    * **`task_id` (Foreign Key):** Links the log to a specific task.
+    * **`start_time` / `end_time` (Timestamp):** Records the session's duration.
+
+### ### Functionalities (Code)
+This is where the timer logic lives.
+* **`start_timer(task_id)`:** This is a key function. It does not write to the database immediately. Instead, it creates a local state file (e.g., `~/.momentum_state.json`) containing the `task_id` and `start_time`. It also updates the task's status to 'in_progress'.
+* **`stop_timer()`:** This function reads the state file, calculates the duration, and then performs two database actions:
+    1.  Inserts a new row into the `time_entries` table.
+    2.  Updates the `current_value` of the associated goal in the `goals` table.
+    Finally, it deletes the state file.
+* **`get_status()`:** Simply reads the state file to show the user what task is currently running and for how long.
+
+---
+## 3. Automatic Activity Auditing Module
+
+This is the most advanced module, providing passive tracking.
+
+### ### Schema (`activity_logs` & `rules` tables)
+* **`activity_logs` table:** Stores the raw data collected by the background service.
+    * **`id` (Primary Key):** Unique ID for the activity log.
+    * **`app_name` / `window_title` (Text):** What application was being used.
+    * **`duration_minutes` (Integer):** How long it was used.
+    * **`category` (Text):** The classification ('productive', 'distracting', 'idle').
+* **`rules` table:** The "brain" that categorizes activity.
+    * **`keyword` (Text):** A word to look for in a window title (e.g., "YouTube", "VS Code").
+    * **`category` (Text):** The category to assign if the keyword is found.
+    * **`goal_id` (Foreign Key, optional):** Links a productive activity directly to a goal.
+
+### ### Functionalities (Code)
+This module is primarily a background **daemon** (a long-running script).
+* **`run_daemon()`:** The main loop that runs continuously, checking user activity every minute.
+* **`get_active_window()`:** Uses a library like `pygetwindow` to get the title of the current application.
+* **`check_for_idle()`:** Uses a library like `pynput` to detect if the user has been inactive (AFK) for a set period.
+* **`categorize_activity(title)`:** Compares the window title against the `rules` table to assign a category. If a rule is linked to a goal, it also updates that goal's `current_value`.
+* **`manage_daemon()`:** CLI commands (`auto-start`, `auto-stop`) to control the background process.
