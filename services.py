@@ -74,7 +74,7 @@ class services:
         else :
             print("No timer is running")
             return None
-    
+    ###GOALS###
     def add_goal(self,des,m,t,deadline):
         res=op.add_goal(des,m,t,deadline)
         return res
@@ -96,7 +96,7 @@ class services:
     
     def show_progress(self,id):
         return op.show_progress(id)
-    
+    ###TASKS###
     def add_task(self,id,desc,p):
         return op.add_task(id,desc,p)
 
@@ -122,6 +122,11 @@ class services:
     def get_all_rules(self):
         return op.list_rules()
     
+    def add_rule(self,keyword,category):
+        return op.add_rule(keyword,category)
+    def delete_rule(self,rule_id):
+        return op.delete_rule(rule_id)
+    ###ACTIVITY LOGS###
     def add_activity_logs(self,app_name,window_title,category,start_time,end_time,duration_minutes):
         return op.add_activity_log(app_name,window_title,category,start_time,end_time,duration_minutes)
     

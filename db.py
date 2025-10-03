@@ -201,11 +201,11 @@ class ops:
             return resp.data if resp.data else None
         except Exception as e:
             raise ValueError(f"Error! Could not add activity: {e}")
-        #BAR CHART,PIE CHART
+    #BAR CHART,PIE CHART
     def track_progress(self,days):
         try:
             start_date=datetime.now(timezone.utc)-timedelta(days=days)
-            resp=sb.table("activity_logs").select('category','duration_minutes').gte('start_time',start_date.isoformat()).execute()
+            resp=sb.table("activity_logs").select('category','duration_minutes','window_title').gte('start_time',start_date.isoformat()).execute()
             if resp.data:
                 df=pd.DataFrame(resp.data)
                 return df
