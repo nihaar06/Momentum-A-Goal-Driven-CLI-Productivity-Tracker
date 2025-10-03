@@ -55,6 +55,7 @@ class services:
             op.update_task_status(ti,'todo')
             os.remove(self.STATE_FILE_PATH)
             print("Timer stopped, You worked for",d_in_min,"minutes.")
+            return ti
         else:
             print("No timer is running.")
             return
@@ -74,3 +75,58 @@ class services:
             print("No timer is running")
             return None
     
+    def add_goal(self,des,m,t,deadline):
+        res=op.add_goal(des,m,t,deadline)
+        return res
+    
+    def get_goal(self,id):
+        return op.get_goal(id)
+    
+    def update_goals(self,id,desc,metric,target_value,deadline):
+        return op.update_goal(id,desc,metric,target_value,deadline)
+    
+    def delete_goal(self,id):
+        return op.delete_goal(id)
+    
+    def list_goals(self):
+        return op.list_goals()
+    
+    def update_progress(self,id,val):
+        return op.update_progress(id,val)
+    
+    def show_progress(self,id):
+        return op.show_progress(id)
+    
+    def add_task(self,id,desc,p):
+        return op.add_task(id,desc,p)
+
+    def update_task(self, task_id, description, goal_id):
+        return op.update_task(task_id, description, goal_id)
+    
+    def delete_task(self, task_id):
+        return op.delete_task(task_id)
+    
+    def set_task_prioritized(self,tid,val):
+        return op.set_task_prioritized(tid,val)
+    
+    def get_prioritized_tasks(self):
+        return op.get_prioritized_tasks()
+
+    def update_task_status(self,id,status):
+        return op.update_task_status(id,status)
+    
+    def list_tasks(self):
+        return op.list_tasks()
+
+    ###RULES###
+    def get_all_rules(self):
+        return op.list_rules()
+    
+    def add_activity_logs(self,app_name,window_title,category,start_time,end_time,duration_minutes):
+        return op.add_activity_log(app_name,window_title,category,start_time,end_time,duration_minutes)
+    
+    def track_activity(self,days):
+        return op.track_progress(days)
+    
+    def track_productivity(self,category,days):
+        return op.track_productivity(category,days)
