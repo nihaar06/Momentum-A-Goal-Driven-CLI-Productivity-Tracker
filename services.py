@@ -82,8 +82,8 @@ class services:
     def get_goal(self,id):
         return op.get_goal(id)
     
-    def update_goals(self,id,desc,metric,target_value,deadline):
-        return op.update_goal(id,desc,metric,target_value,deadline)
+    def update_goals(self,id,desc,metric,target_value,deadline,current_value=None):
+        return op.update_goal(id,desc,metric,target_value,deadline,current_value)
     
     def delete_goal(self,id):
         return op.delete_goal(id)

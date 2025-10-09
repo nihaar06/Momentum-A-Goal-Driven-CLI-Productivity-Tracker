@@ -22,14 +22,15 @@ class ops:
         except Exception as e:
             raise ValueError(f"An error occured! {e}")
 
-    def update_goal(self, goal_id, description, metric, target_value,deadline=None):
+    def update_goal(self, goal_id, description, metric, target_value,deadline=None,current_value=None):
         """Updates an existing goal's details."""
         try:
             payload = {
                 'description': description,
                 'metric': metric,
                 'target_value': target_value,
-                'deadline':deadline
+                'deadline':deadline,
+                'current_value':current_value
             }
             res = sb.table('goals').update(payload).eq('goal_id', goal_id).execute()
             return res.data

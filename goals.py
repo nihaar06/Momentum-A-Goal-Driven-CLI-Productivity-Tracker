@@ -93,6 +93,8 @@ def display_goals():
                     metric_options,     
                     index=metric_options.index(selected_goal_data['metric'].lower())
                 )
+                new_curr=st.number_input("Current Value",min_value=0.0,value=float(selected_goal_data['current_value']))
+                st.caption("Update the current value only if you've made progress since the last update.")
                 new_target=st.number_input('Target Value',min_value=1,value=selected_goal_data['target_value'])
 
                 col1,col2=st.columns(2)
@@ -101,7 +103,7 @@ def display_goals():
                 with col2:
                     delete_submitted=st.form_submit_button("Delete Goal",type="primary")
                 if update_submitted:
-                    ss.update_goal(selected_goal_id,new_desc,new_metric,new_target)
+                    ss.update_goals(selected_goal_id,new_desc,new_metric,new_target,selected_goal_data['deadline'],new_curr if new_curr else selected_goal_data['current_value'])
                     st.success(f"Goal {selected_goal_id} updated successfully.")
                 if delete_submitted:
                     st.session_state.confirm_delete = st.checkbox("Yes, I want to permanently delete this goal.")
