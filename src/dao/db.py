@@ -4,11 +4,20 @@ from dotenv import load_dotenv
 import pandas as pd
 from datetime import datetime,timedelta,timezone
 import json
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from config import SUPABASE_URL, SUPABASE_KEY
 
 load_dotenv()
 
-url=os.getenv('SUPABASE_URL')
-key=os.getenv("SUPABASE_KEY")
+# Use environment variables if available, otherwise use config file
+url = os.getenv('SUPABASE_URL') or SUPABASE_URL
+key = os.getenv("SUPABASE_KEY") or SUPABASE_KEY
+
+if url == 'your_supabase_url_here' or key == 'your_supabase_anon_key_here':
+    print("⚠️  WARNING: Please configure your Supabase credentials in config.py or set environment variables")
+    print("   SUPABASE_URL and SUPABASE_KEY")
+
 sb:Client=create_client(url,key)
 
 

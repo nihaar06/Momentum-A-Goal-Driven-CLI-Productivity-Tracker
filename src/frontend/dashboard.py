@@ -1,9 +1,8 @@
 import streamlit as st
 import pandas as pd
+from src.dao.db import ops
+from src.services.services import services
 import plotly.express as px
-from db import ops
-from services import services
-
 ss=services()
 op=ops()
 

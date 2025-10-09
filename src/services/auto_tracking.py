@@ -2,8 +2,8 @@
 import sys
 import time
 from datetime import datetime, timedelta
-from db import ops
-from services import services
+from src.dao.db import ops
+from src.services.services import services
 
 try:
     import pygetwindow as gw

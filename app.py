@@ -1,21 +1,25 @@
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-from db import ops
-from services import services
-from dashboard import display_dashboard
-from goals import display_goals
-from rules import display_rules
-from tasks import display_tasks
+"""
+Momentum Tracker - Main Streamlit Application
+Run this file to start the application: streamlit run app.py
+"""
 
-st.set_page_config(page_title='Momentum Tracker',layout='wide')
+import streamlit as st
+from src.dao import db
+from src.services.services import services
+from src.frontend.dashboard import display_dashboard
+from src.frontend.goals import display_goals
+from src.frontend.rules import display_rules
+from src.frontend.tasks import display_tasks
+
+st.set_page_config(page_title='Momentum Tracker', layout='wide')
 st.title("🚀 Momentum: Your Productivity Tracker")
 
-ss=services()
-op=ops()
+ss = services()
+op = db.ops()
 
-page=st.sidebar.radio('NAVIGATION',['Dashboard','Goals','Tasks','Rules Management'])
-if page=='Dashboard':
+page = st.sidebar.radio('NAVIGATION', ['Dashboard', 'Goals', 'Tasks', 'Rules Management'])
+
+if page == 'Dashboard':
     display_dashboard()
 elif page == "Goals":
     display_goals()

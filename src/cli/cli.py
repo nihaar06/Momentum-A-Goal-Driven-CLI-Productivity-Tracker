@@ -1,7 +1,7 @@
 #CLI Implementation
 
-from services import services
-from db import ops
+from src.services.services import services
+from src.dao.db import ops
 
 ss=services()
 op=ops()
