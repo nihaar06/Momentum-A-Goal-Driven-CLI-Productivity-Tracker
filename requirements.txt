@@ -4,6 +4,5 @@ streamlit
 pygetwindow
 pynput
 pyrect
-pywin32
 pandas 
 plotly

@@ -17,17 +17,33 @@ def display_tasks():
         df_tasks=pd.DataFrame(tdf)
         st.dataframe(df_tasks,use_container_width=True)
     with st.expander("Add new task"):
-        with st.form("NEW_TASK_FORM",clear_on_submit=True):
-            st.subheader("Add a new Task")
-            new_gid = st.number_input("Goal ID:", min_value=1, step=1)
-            new_desc=st.text_input("Description:")
-            new_is_prioritized=st.selectbox("Prioritized",['True','False'])
-            submitted=st.form_submit_button("Add Task")
-            if submitted:
-                is_prioritized_bool = (new_is_prioritized == 'True') 
-                ss.add_task(int(new_gid),new_desc,is_prioritized_bool)
-                st.success("Task Added successfully.")
-                st.rerun()
+        # First, fetch all existing goals to populate the dropdown
+        all_goals = op.list_goals()
+
+        if not all_goals:
+            st.warning("You must create a goal before you can add a task. Go to the 'Goals' page.")
+        else:
+            with st.form("NEW_TASK_FORM", clear_on_submit=True):
+                st.subheader("Add a new Task")
+
+                # FIX: Use a selectbox instead of a number input
+                selected_goal = st.selectbox(
+                    "Link to Goal:",
+                    all_goals,
+                    # This function tells the selectbox what to display to the user
+                    format_func=lambda goal: f"{goal['goal_id']}: {goal['description']}"
+                )
+
+                new_desc = st.text_input("Description:")
+                new_is_prioritized = st.checkbox("Prioritize this task?")
+
+                submitted = st.form_submit_button("Add Task")
+                if submitted:
+                    # Get the actual ID from the full goal object the user selected
+                    goal_id = selected_goal['goal_id']
+                    ss.add_task(goal_id, new_desc, new_is_prioritized)
+                    st.success("Task Added successfully.")
+                    st.rerun()
     if tdf: # Only show this section if there are tasks to manage
         st.subheader("Edit or Delete a Task")
         
