@@ -67,6 +67,23 @@ streamlit run app.py
 3. **Tasks**: Add tasks linked to your goals
 4. **Rules Management**: Set up categorization rules for applications
 
+## 📸 Screenshots
+![dashboard](https://github.com/user-attachments/assets/888f11ab-c316-4fcb-8ae4-deb2767aca45)
+![goal](https://github.com/user-attachments/assets/f42eb610-0f6e-49b3-a703-803abb44140b)
+![tasks](https://github.com/user-attachments/assets/22365b00-50af-401c-a094-67d22fb0a772)
+![rules](https://github.com/user-attachments/assets/85324128-68b7-44cc-a4c7-06cd227f06f1)
+
+| Screenshot | Description |
+|-------------|--------------|
+| 🏠 **Dashboard Overview** | Show the main Streamlit dashboard displaying active and completed goals with progress indicators. |
+| 🎯 **Goals Page** | Capture the “Goals” section — adding, editing, or deleting a goal, along with goal progress metrics. |
+| ✅ **Tasks Page** | Show the “Tasks” interface listing daily or linked tasks, marking one as complete. |
+| ⚙️ **Rules Page** | Display your “Rules” or automation setup — e.g., how productivity rules or streaks are created. |
+| 📊 **Analytics / Summary (if available)** | Any visual summaries, charts, or streak counters. |
+| ⚡ **Add Goal / Task Modal or Form** | Show how users input a new goal or task through Streamlit forms. |
+| 🌙 **Dark Mode or Themed View (optional)** | If you’ve styled the app or added themes, include one aesthetic screenshot. |
+
+
 ## Troubleshooting
 
 - Make sure your Supabase credentials are correctly configured
