@@ -67,11 +67,6 @@ streamlit run app.py
 3. **Tasks**: Add tasks linked to your goals
 4. **Rules Management**: Set up categorization rules for applications
 
-## 📸 Screenshots
-![dashboard](https://github.com/user-attachments/assets/888f11ab-c316-4fcb-8ae4-deb2767aca45)
-![goal](https://github.com/user-attachments/assets/f42eb610-0f6e-49b3-a703-803abb44140b)
-![tasks](https://github.com/user-attachments/assets/22365b00-50af-401c-a094-67d22fb0a772)
-![rules](https://github.com/user-attachments/assets/85324128-68b7-44cc-a4c7-06cd227f06f1)
 
 ## 🎬 Live Demo
 
