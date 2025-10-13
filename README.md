@@ -73,6 +73,13 @@ streamlit run app.py
 ![tasks](https://github.com/user-attachments/assets/22365b00-50af-401c-a094-67d22fb0a772)
 ![rules](https://github.com/user-attachments/assets/85324128-68b7-44cc-a4c7-06cd227f06f1)
 
+## 🎬 Live Demo
+
+https://github.com/user-attachments/assets/0f1f72fe-b761-4c56-b8b4-9c68ddcd1c8f
+
+
+
+
 | Screenshot | Description |
 |-------------|--------------|
 | 🏠 **Dashboard Overview** | Show the main Streamlit dashboard displaying active and completed goals with progress indicators. |
